@@ -19,7 +19,7 @@ paths:
         '404':
           description: Not Found
       operationId: get-api-items
-      description: ''
+      description: Get all items
       requestBody:
         content:
           application/json:
@@ -32,6 +32,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
         '404':
           description: Not Found
       requestBody:
@@ -39,6 +43,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Item'
+      description: Post an item
     parameters: []
   '/api/items/:id':
     delete:
@@ -47,6 +52,10 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
         '404':
           description: Not Found
       description: Delete item
@@ -69,6 +78,12 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: Not Found
       description: Modify item by id
   '/api/items/:search/:word':
     get:
@@ -100,6 +115,52 @@ paths:
           description: Not Found
       operationId: get-api-user
       description: Get all users
+  '/api/user/:id':
+    get:
+      summary: Get user by id
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Not Found
+      operationId: 'get-api-user-:id'
+      description: Get user by id
+  /user/signin:
+    get:
+      summary: Create a new user
+      tags: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Bad Request
+      operationId: get-user-signin
+      description: Create a new account for user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - email
+                - password
 components:
   schemas:
     User:
@@ -166,28 +227,6 @@ components:
         - date
         - phoneNumber
         - description
-    Item_no_id:
-      title: Item_no_id
-      type: object
-      properties:
-        name:
-          type: string
-        price:
-          type: number
-        title:
-          type: string
-        category:
-          type: string
-        location:
-          type: string
-        date:
-          type: string
-        phoneNumber:
-          type: number
-        description:
-          type: string
-        deliveryType:
-          type: string
   securitySchemes:
     API Key - 1:
       name: API Key
