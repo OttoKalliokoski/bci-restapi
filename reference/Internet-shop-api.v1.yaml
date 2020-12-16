@@ -1,0 +1,195 @@
+openapi: 3.0.0
+info:
+  title: Internet shop api
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /api/items:
+    get:
+      summary: GET items
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: Not Found
+      operationId: get-api-items
+      description: ''
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
+        description: ''
+    post:
+      summary: POST items
+      operationId: post-api-items
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Item'
+    parameters: []
+  '/api/items/:id':
+    delete:
+      summary: Delete item by id
+      operationId: Delete item by id
+      responses:
+        '200':
+          description: OK
+        '404':
+          description: Not Found
+      description: Delete item
+    get:
+      summary: Get item by id
+      operationId: Get item by id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: Not Found
+      description: Get item by id
+    put:
+      summary: Modify item by id
+      operationId: Modify item by id
+      responses:
+        '200':
+          description: OK
+      description: Modify item by id
+  '/api/items/:search/:word':
+    get:
+      summary: Search by searchwords
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '404':
+          description: Not Found
+      operationId: 'get-api-items-:search-:word'
+      description: 'Search by category, date and location'
+  /api/user:
+    get:
+      summary: GET all users
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Not Found
+      operationId: get-api-user
+      description: Get all users
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      x-examples:
+        example-1:
+          id: '1'
+          username: Otto
+          email: otto@email.com
+          password: qwerty
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    Item:
+      title: Item
+      type: object
+      x-examples:
+        example-1:
+          id: 0
+          name: string
+          price: 0
+          title: string
+          category: string
+          location: string
+          date: string
+          phoneNumber: 0
+          description: string
+          deliveryType: string
+      properties:
+        id:
+          type: number
+        name:
+          type: string
+        price:
+          type: number
+        title:
+          type: string
+        category:
+          type: string
+        location:
+          type: string
+        date:
+          type: string
+        phoneNumber:
+          type: number
+        description:
+          type: string
+        deliveryType:
+          type: string
+      required:
+        - id
+        - name
+        - price
+        - title
+        - category
+        - location
+        - date
+        - phoneNumber
+        - description
+    Item_no_id:
+      title: Item_no_id
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: number
+        title:
+          type: string
+        category:
+          type: string
+        location:
+          type: string
+        date:
+          type: string
+        phoneNumber:
+          type: number
+        description:
+          type: string
+        deliveryType:
+          type: string
+  securitySchemes:
+    API Key - 1:
+      name: API Key
+      type: apiKey
+      in: query
